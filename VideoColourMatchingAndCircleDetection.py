@@ -5,6 +5,8 @@ import numpy as np
 
 def nothing(x): # apparently needs to be here to use trackbar 
     pass
+#HEJ
+
 
 if __name__ == '__main__':
     cap = cv2.VideoCapture(0) # choose camera
