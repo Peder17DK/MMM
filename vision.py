@@ -69,3 +69,12 @@ for i in circles[0,:]:
     cv.circle(img,(i[0],i[1]),2,(0,0,255),3)
 cv.imshow('detected circles',img)
 cv.waitKey(0)
+
+def readImage(inputImage: cv.Mat):
+    img = cv.imread('Images/multible.jpg')
+
+def main():
+    print("Hello World!")
+
+if __name__ == "__main__":
+    main()
