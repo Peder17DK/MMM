@@ -130,25 +130,30 @@ def isolateChannel(inputImage: cv.Mat, channel: int):   #isolate a userdefined c
 
 #noiceType: bytes = 1, noiceAmount: bytes = 128
 
-def emulatedNoice(inputImage: cv.Mat, noiceType: str = 'rnd',noiceAmount: int = 70): #inputImage: image loaded in. noiceType: 1=gaussian 2=salt&peper
+def emulatedNoice(inputImage: cv.Mat, noiceType: str = 's&p',noiceAmount: int = 70): #inputImage: image loaded in. noiceType: 1=gaussian 2=salt&peper
 
     if(noiceType == 'gaussian'):
+        # Add gaussian noise to the image.
         return np.array(255*random_noise(inputImage, mode='gaussian',amount = float(noiceAmount/100)), dtype = 'uint8')
-       
     
-    # Add salt-and-pepper noise to the image.
-    noise_img = random_noise(inputImage, mode='s&p',amount = float(noiceAmount/100))
+    if(noiceType == "s&p"):
+        # Add salt-and-pepper noise to the image.
+        return np.array(255*random_noise(inputImage, mode='s&p',amount = float(noiceAmount/100)), dtype = 'uint8')
+    
+    if(noiceType == "poisson"):
+        # Add salt-and-pepper noise to the image.
+        return np.array(255*random_noise(inputImage, mode='poisson',amount = float(noiceAmount/100)), dtype = 'uint8')
+    
+    if(noiceType == "speckle"):
+        # Add salt-and-pepper noise to the image.
+        return np.array(255*random_noise(inputImage, mode='speckle',amount = float(noiceAmount/100)), dtype = 'uint8')
+    
+    
+    
+    #the multiplaction 255 is to insure the image is not masked over with a darker mask.
+    
 
-    # The above function returns a floating-point image
-    # on the range [0, 1], thus we changed it to 'uint8'
-    # and from [0,255]
-    noise_img = np.array(255*noise_img, dtype = 'uint8')
-
-    # Display the noise image
-    cv.imshow('blur',noise_img)
-    cv.waitKey(0)
-
-
+    
 
 def plotnoise(inputImage: cv.Mat):
     img = inputImage
@@ -213,15 +218,8 @@ def houghCircle(inputImage: cv.Mat):
 
 def main():
     img = readImage("Lag")   
-    #img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-    #houg = houghCircle(img)
-    #gaussianBlur(img, True)
-    #hsv = RGB2HVS(gaussianBlur(img, False))
-    #print(houg)
-    #edges =cannyFilter(img)
-    #displayImage(edges)
-    #plotnoise(img)
-    emulatedNoice(img, 'gaussian')
+    noi = emulatedNoice(img, 'gaussian')
+    displayImage(noi)
       
 
 

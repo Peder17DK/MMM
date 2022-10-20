@@ -1,19 +1,6 @@
-import sqlite3
-from sqlite3 import Error
+from pysondb import db
 
-
-def create_connection(db_file):
-    """ create a database connection to a SQLite database """
-    conn = None
-    try:
-        conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
-    except Error as e:
-        print(e)
-    finally:
-        if conn:
-            conn.close()
-
-
-if __name__ == '__main__':
-    create_connection(r"C:\sqlite\db\MMM_database.db")
+a=db.getDb("path/to/json.json")
+a.addMany([{"name":"pysondb","type":"DB"},{"name":"pysondb-cli","type":"CLI"}])
+a.getAll()
+[{"name":"pysondb","type":"DB"},{"name":"pysondb-cli","type":"CLI"}]
